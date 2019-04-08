@@ -66,6 +66,7 @@ namespace Calculator
                 {
                     Text1.Text = Text1.Text.Remove(Text1.Text.Length - 1) + i;
                     operations[j - 1] = i;
+                    int b = 0; // testing github
                     Console.WriteLine("J = " + j);
                     for (int k = 0; k < 3; k++)
                     {

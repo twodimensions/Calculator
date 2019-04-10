@@ -40,7 +40,7 @@ namespace Calculator
         private void UpdateCalc1(string i)
         {
 
-            if ( i == "/" || i == "+" || i == "-" || i == "*" || i == "=")
+            if ( i == "/" || i == "+" || i == "-" || i == "X" || i == "=")
             {
                 j++; // counter how manytimes operation symbol hit
                 //operations[j-1] = i;
@@ -66,11 +66,6 @@ namespace Calculator
                 {
                     Text1.Text = Text1.Text.Remove(Text1.Text.Length - 1) + i;
                     operations[j - 1] = i;
-                    Console.WriteLine("J = " + j);
-                    for (int k = 0; k < 3; k++)
-                    {
-                        Console.WriteLine("In the change op = " + operations[k]);
-                    }
                 }
 
 
@@ -158,54 +153,85 @@ namespace Calculator
         private void Two_Click(object sender, RoutedEventArgs e) //input 2
         {
             SetCal("2");
-
-            //if (globalequal == 0)
-            //{
-            //    UpdateCalc1("2");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("AddToPastSum = " + AddToPastSum);
-            //    Console.WriteLine("globalequal = " + globalequal);
-
-            //    if (AddToPastSum == 1)
-            //    {
-            //        Console.WriteLine("INSIDE AddToPastSum = " + AddToPastSum);
-            //        Console.WriteLine("INSIDE globalequal = " + globalequal);
-            //        UpdateCalc1("2");
-            //    }
-            //    else
-            //    {
-            //        globalequal = 0;
-            //        Text2.Text = "";
-            //        j = 0;
-            //        Array.Clear(Array1, 0, Array1.Length); // clear array.
-            //        UpdateCalc1("2");
-            //    }
-
-            //}
         }
 
         private void Equals_Click(object sender, RoutedEventArgs e)
         {
 
             var Input = new Operations();
+            string Test = Text1.Text + " "+ Text2.Text;
+
             Text1.Text = "";
-            double total = Array1[0];
-            for (int i=0; i<operations.Length;i++)
+            //double total = Array1[0];
+            double[] totalA = new double[15];
+            double[] total2 = new double[15];
+
+
+            List<int> whereOpisM = new List<int>();
+            List<int> whereOpisD = new List<int>();
+            List<int> whereOpisS = new List<int>();
+            List<int> whereOpisA = new List<int>();
+
+
+
+            for (int i = 0; i < operations.Length; i++)
             {
+
+                if (operations[i] == "X")
+                { whereOpisM.Add(i); }
+                if (operations[i] == "/")
+                { whereOpisD.Add(i); }
+                if (operations[i] == "+")
+                { whereOpisA.Add(i); }
                 if (operations[i] == "-")
-                {
-                    total = Input.Subtract(total, Array1[i + 1]);
-
-                }
-                if(operations[i] == "+")
-                {
-
-                    total = Input.Add(total, Array1[i + 1]);
-                }
+                { whereOpisS.Add(i); }
             }
-            Text2.Text = Convert.ToString(total);
+
+            if (whereOpisM.Count != 0)
+            {
+                for (int j = 0; j < whereOpisM.Count; j++)
+                {
+                    total2[j] = Input.Multiply(Array1[whereOpisM[j]], Array1[whereOpisM[j + 1]]);
+                }
+
+            }
+            if (whereOpisA.Count != 0)
+            {
+                for (int k = 0; k < whereOpisA.Count; k++)
+                {
+                    if (whereOpisM.Count != 0)
+                    {
+                        totalA[k] = Input.Add(total2[k], total2[k + 1]);
+                    }
+                    else
+                    {
+                        totalA[k] = Input.Add(totalA[k], Array1[k + 1]);
+                    }
+                }
+
+            }
+
+            //    for (int i=0; i<operations.Length;i++)
+            //{
+
+
+            //    if (operations[i] == "X")
+            //    {
+            //        total = Input.Multiply(total, Array1[i + 1]);
+            //    }
+            //    if (operations[i] == "-")
+            //    {
+            //        total = Input.Subtract(total, Array1[i + 1]);
+
+            //    }
+            //    if(operations[i] == "+")
+            //    {
+
+            //        total = Input.Add(total, Array1[i + 1]);
+            //    }
+
+            //}
+            Text2.Text = Convert.ToString(totalA.Sum());
 
             //reset globals
             globalequal = 1;
@@ -313,6 +339,19 @@ namespace Calculator
         private void Seven_Click(object sender, RoutedEventArgs e) //input 7
         {
             SetCal("7");
+        }
+
+        private void Multiply_Click(object sender, RoutedEventArgs e)
+        {
+            if (globalequal == 1)
+            {
+                AddToPastSum = 1;
+                UpdateCalc1("X");
+            }
+            else
+            {
+                UpdateCalc1("X");
+            }
         }
     }
 }

@@ -31,21 +31,7 @@ namespace Calculator
         }
 
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                     
 
 
 
@@ -69,26 +55,10 @@ namespace Calculator
         //}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public double TestFunction(double[] a)
+        {
+            return 0;
+        }
 
 
 

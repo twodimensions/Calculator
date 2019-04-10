@@ -34,7 +34,7 @@
         <Button x:Name="Seven" Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Content="7" Click="Seven_Click" />
         <Button x:Name="Eight" Grid.Column="2" Grid.Row="4" Margin="2,2,2,2" Content="8" Click="Eight_Click" />
         <Button x:Name="Nine" Grid.Column="3" Grid.Row="4" Margin="2,2,2,2" Content="9" Click="Nine_Click" />
-        <Button x:Name="Multiply" Grid.Column="4" Grid.Row="4" Margin="2,2,2,2" Content="X" />
+        <Button x:Name="Multiply" Grid.Column="4" Grid.Row="4" Margin="2,2,2,2" Content="X" Click="Multiply_Click" />
         <Button x:Name="Four" Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" Content="4" Click="Four_Click" />
         <Button x:Name="Five" Grid.Column="2" Grid.Row="5" Margin="2,2,2,2" Content="5" Click="Five_Click" />
         <Button x:Name="Six" Grid.Column="3" Grid.Row="5" Margin="2,2,2,2" Content="6" Click="Six_Click" />

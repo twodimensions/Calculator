@@ -43,7 +43,7 @@ namespace Calculator
             if ( i == "/" || i == "+" || i == "-" || i == "X" || i == "=")
             {
                 j++; // counter how manytimes operation symbol hit
-                //operations[j-1] = i;
+                operations[j-1] = i;
                 Console.WriteLine("J = " + j);
                 Console.WriteLine(Text2.Text);
                 for(int k =0; k < 3;k++)
@@ -189,7 +189,7 @@ namespace Calculator
 
             if (whereOpisM.Count != 0)
             {
-                for (int j = 0; j < whereOpisM.Count; j++)
+                for (int j = 0; j <= whereOpisM.Count; j++)
                 {
                     total2[j] = Input.Multiply(Array1[whereOpisM[j]], Array1[whereOpisM[j + 1]]);
                 }
@@ -197,7 +197,7 @@ namespace Calculator
             }
             if (whereOpisA.Count != 0)
             {
-                for (int k = 0; k < whereOpisA.Count; k++)
+                for (int k = 0; k <= whereOpisA.Count; k++)
                 {
                     if (whereOpisM.Count != 0)
                     {
@@ -205,7 +205,7 @@ namespace Calculator
                     }
                     else
                     {
-                        totalA[k] = Input.Add(totalA[k], Array1[k + 1]);
+                        totalA[k] = Input.Add(totalA[k], Array1[k]);
                     }
                 }
 

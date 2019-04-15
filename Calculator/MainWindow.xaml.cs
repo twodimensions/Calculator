@@ -189,25 +189,43 @@ namespace Calculator
 
             if (whereOpisM.Count != 0)
             {
-                for (int j = 0; j <= whereOpisM.Count; j++)
+                for (int j = 0; j < whereOpisM.Count; j++)
                 {
-                    total2[j] = Input.Multiply(Array1[whereOpisM[j]], Array1[whereOpisM[j + 1]]);
+                    total2[j] = Input.Multiply(Array1[j], Array1[j + 1]);
                 }
 
             }
             if (whereOpisA.Count != 0)
             {
-                for (int k = 0; k <= whereOpisA.Count; k++)
+                if ( whereOpisA.Count != 0 && whereOpisM.Count != 0)
                 {
-                    if (whereOpisM.Count != 0)
+                    for (int k = 0; k < whereOpisA.Count; k++)
                     {
-                        totalA[k] = Input.Add(total2[k], total2[k + 1]);
-                    }
-                    else
-                    {
-                        totalA[k] = Input.Add(totalA[k], Array1[k]);
+                        if (whereOpisM.Count != 0)
+                        {
+                            if (whereOpisA.Count != 0)
+                            {
+                                totalA[k] = Array1[whereOpisA[k] + 1] + total2[k];
+                            }
+                            else
+                            {
+                                totalA[k] = Input.Add(total2[k], total2[k + 1]);
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    for (int k = 0; k <= whereOpisA.Count; k++)
+                    {
+                            totalA[k] = Input.Add(totalA[k], Array1[k]);
+                    }
+                }
+
+
+
+
+
 
             }
 
@@ -231,8 +249,19 @@ namespace Calculator
             //    }
 
             //}
-            Text2.Text = Convert.ToString(totalA.Sum());
+            //Text2.Text = Convert.ToString(totalA.Sum() + total2.Sum());
+            Console.WriteLine("Multiply = " + whereOpisM.Sum());
+            Console.WriteLine("Add = " + whereOpisA.Sum());
+            if (whereOpisM.Count > 0 && whereOpisA.Count > 0)
+                { Text2.Text = Convert.ToString(totalA.Sum()); }
+                if (whereOpisM.Count > 0 && whereOpisA.Count == 0)
+                { Text2.Text = Convert.ToString(total2.Sum()); }
+                if (whereOpisA.Count > 0 && whereOpisM.Count == 0)
+                { Text2.Text = Convert.ToString(totalA.Sum()); }
 
+
+
+            //Text2.Text = Convert.ToString(totalA.Sum());
             //reset globals
             globalequal = 1;
             AddToPastSum = 0;

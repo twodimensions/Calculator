@@ -116,38 +116,7 @@ namespace Calculator
 
         private void One_Click(object sender, RoutedEventArgs e) // input 1
         {
-
             SetCal("1");
-
-
-
-
-
-            //if (globalequal == 0)
-            //{
-            //    UpdateCalc1("1");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("AddToPastSum = " + AddToPastSum);
-            //    Console.WriteLine("globalequal = " + globalequal);
-
-
-            //    if (AddToPastSum == 1)
-            //    {
-            //        UpdateCalc1("1");
-            //    }
-            //    else
-            //    {
-            //        globalequal = 0;
-            //        Text2.Text = "";
-            //        j = 0;
-            //        Array.Clear(Array1, 0, Array1.Length); // clear array.
-            //        UpdateCalc1("1");
-            //    }
-
-            //}
-        
         }
 
         private void Two_Click(object sender, RoutedEventArgs e) //input 2
@@ -162,9 +131,9 @@ namespace Calculator
             string Test = Text1.Text + " "+ Text2.Text;
 
             Text1.Text = "";
-            //double total = Array1[0];
-            double[] totalA = new double[15];
-            double[] total2 = new double[15];
+            double[] totalA = new double[15]; // array for Addition
+            double[] totalS = new double[15]; // array for Addition
+            double[] totalM = new double[15]; // // array for Multiplication
 
 
             List<int> whereOpisM = new List<int>();
@@ -187,17 +156,48 @@ namespace Calculator
                 { whereOpisS.Add(i); }
             }
 
-            if (whereOpisM.Count != 0)
+            if (whereOpisM.Count != 0) // multiply 
             {
                 for (int j = 0; j < whereOpisM.Count; j++)
                 {
-                    total2[j] = Input.Multiply(Array1[j], Array1[j + 1]);
+                    totalM[j] = Input.Multiply(Array1[j], Array1[j + 1]);
                 }
 
             }
-            if (whereOpisA.Count != 0)
+
+            if (whereOpisS.Count != 0) // Subtract
             {
-                if ( whereOpisA.Count != 0 && whereOpisM.Count != 0)
+                if (whereOpisS.Count != 0 && whereOpisM.Count != 0) // Subtracting and Multiply Sum
+                {
+                    for (int k = 0; k < whereOpisA.Count; k++)
+                    {
+                        if (whereOpisM.Count != 0)
+                        {
+                            if (whereOpisS.Count != 0)
+                            {
+                                totalS[k] = totalM[k] - Array1[whereOpisA[k] + 1];
+                            }
+                            else
+                            {
+                                totalS[k] = Input.Subtract(totalM[k], totalM[k + 1]);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int k = 0; k <= whereOpisS.Count; k++) // Subtracting Only
+                    {
+                        totalS[k] = Input.Subtract(totalS[k], Array1[k]);
+                    }
+                }
+            }
+
+
+
+            if (whereOpisA.Count != 0) // Adding
+            {
+                if ( whereOpisA.Count != 0 && whereOpisM.Count != 0) // Adding and Multiply Sum
                 {
                     for (int k = 0; k < whereOpisA.Count; k++)
                     {
@@ -205,60 +205,45 @@ namespace Calculator
                         {
                             if (whereOpisA.Count != 0)
                             {
-                                totalA[k] = Array1[whereOpisA[k] + 1] + total2[k];
+                                totalA[k] = Array1[whereOpisA[k] + 1] + totalM[k];
                             }
                             else
                             {
-                                totalA[k] = Input.Add(total2[k], total2[k + 1]);
+                                totalA[k] = Input.Add(totalM[k], totalM[k + 1]);
                             }
                         }
                     }
                 }
                 else
                 {
-                    for (int k = 0; k <= whereOpisA.Count; k++)
+                    for (int k = 0; k <= whereOpisA.Count; k++) // Adding Only
                     {
                             totalA[k] = Input.Add(totalA[k], Array1[k]);
                     }
                 }
-
-
-
-
-
-
             }
 
-            //    for (int i=0; i<operations.Length;i++)
-            //{
 
 
-            //    if (operations[i] == "X")
-            //    {
-            //        total = Input.Multiply(total, Array1[i + 1]);
-            //    }
-            //    if (operations[i] == "-")
-            //    {
-            //        total = Input.Subtract(total, Array1[i + 1]);
 
-            //    }
-            //    if(operations[i] == "+")
-            //    {
 
-            //        total = Input.Add(total, Array1[i + 1]);
-            //    }
 
-            //}
-            //Text2.Text = Convert.ToString(totalA.Sum() + total2.Sum());
+
+
+
+
+
+
             Console.WriteLine("Multiply = " + whereOpisM.Sum());
             Console.WriteLine("Add = " + whereOpisA.Sum());
-            if (whereOpisM.Count > 0 && whereOpisA.Count > 0)
+            if (whereOpisM.Count > 0 && whereOpisA.Count > 0) // Display output
                 { Text2.Text = Convert.ToString(totalA.Sum()); }
-                if (whereOpisM.Count > 0 && whereOpisA.Count == 0)
-                { Text2.Text = Convert.ToString(total2.Sum()); }
-                if (whereOpisA.Count > 0 && whereOpisM.Count == 0)
-                { Text2.Text = Convert.ToString(totalA.Sum()); }
-
+            if (whereOpisM.Count > 0 && whereOpisA.Count == 0)
+            { Text2.Text = Convert.ToString(total2.Sum()); }
+            if (whereOpisA.Count > 0 && whereOpisM.Count == 0)
+            { Text2.Text = Convert.ToString(totalA.Sum()); }
+            if (whereOpisS.Count > 0 && whereOpisM.Count == 0)
+            { Text2.Text = Convert.ToString(totalS.Sum()); }
 
 
             //Text2.Text = Convert.ToString(totalA.Sum());

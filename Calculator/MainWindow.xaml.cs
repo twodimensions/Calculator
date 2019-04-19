@@ -133,7 +133,7 @@ namespace Calculator
             Text1.Text = "";
             double[] totalA = new double[15]; // array for Addition
             double[] totalS = new double[15]; // array for Addition
-            double[] totalM = new double[15]; // // array for Multiplication
+            double[] totalM = new double[15]; // array for Multiplication
 
 
             List<int> whereOpisM = new List<int>();
@@ -169,13 +169,13 @@ namespace Calculator
             {
                 if (whereOpisS.Count != 0 && whereOpisM.Count != 0) // Subtracting and Multiply Sum
                 {
-                    for (int k = 0; k < whereOpisA.Count; k++)
+                    for (int k = 0; k < whereOpisS.Count; k++)
                     {
                         if (whereOpisM.Count != 0)
                         {
                             if (whereOpisS.Count != 0)
                             {
-                                totalS[k] = totalM[k] - Array1[whereOpisA[k] + 1];
+                                totalS[k] = totalM[k] - Array1[whereOpisS[k] + 1];
                             }
                             else
                             {
@@ -186,9 +186,13 @@ namespace Calculator
                 }
                 else
                 {
-                    for (int k = 0; k <= whereOpisS.Count; k++) // Subtracting Only
+                    // Subraction only
+                    totalS[0] = Array1[0] - Array1[1];
+
+                    if (whereOpisS.Count > 1)
                     {
-                        totalS[k] = Input.Subtract(totalS[k], Array1[k]);
+                        for (int k = 1; k < whereOpisS.Count; k++)
+                            totalS[k] = totalS[k-1] - Array1[k + 1];
                     }
                 }
             }
@@ -238,14 +242,21 @@ namespace Calculator
             Console.WriteLine("Add = " + whereOpisA.Sum());
             if (whereOpisM.Count > 0 && whereOpisA.Count > 0) // Display output
                 { Text2.Text = Convert.ToString(totalA.Sum()); }
-            if (whereOpisM.Count > 0 && whereOpisA.Count == 0)
-            { Text2.Text = Convert.ToString(total2.Sum()); }
+            if (whereOpisM.Count > 0 && whereOpisA.Count == 0 && whereOpisS.Count == 0)
+            { Text2.Text = Convert.ToString(totalM.Sum()); }
             if (whereOpisA.Count > 0 && whereOpisM.Count == 0)
             { Text2.Text = Convert.ToString(totalA.Sum()); }
             if (whereOpisS.Count > 0 && whereOpisM.Count == 0)
-            { Text2.Text = Convert.ToString(totalS.Sum()); }
+            { Text2.Text = Convert.ToString(totalS[whereOpisS.Count - 1]); }
+            if (whereOpisS.Count > 0 && whereOpisM.Count > 0)
+            { Text2.Text = Convert.ToString(totalS[whereOpisS.Count - 1]);
+                Array1[0] = totalS[whereOpisS.Count - 1];
+            }
 
-
+            whereOpisM.Clear(); //reset operation location
+            Array.Clear(operations, 0, operations.Length);
+            Array.Clear(Array1, 1, Array1.Length-1);
+            j = 0;
             //Text2.Text = Convert.ToString(totalA.Sum());
             //reset globals
             globalequal = 1;
